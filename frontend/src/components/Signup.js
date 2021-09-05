@@ -26,10 +26,10 @@ const Signup = () => {
         throw new Error("requestSignup error");
       }
       const { user } = await res.json();
-      return true;
+      return user;
     } catch (error) {
       console.log(error);
-      return false;
+      return null;
     }
   };
 
@@ -39,11 +39,11 @@ const Signup = () => {
       return setErrorMessage("Please enter your email");
     }
 
-    const signedup = await requestSignup();
-    if (signedup) {
-      const loggedin = await requestLogin(email, password, setUser);
-      if (loggedin) {
-        history.push("/");
+    const signedupUser = await requestSignup();
+    if (signedupUser) {
+      const loggedinUser = await requestLogin(email, password, setUser);
+      if (loggedinUser) {
+        return history.push("/");
       }
     }
     setErrorMessage("Sign up failed");
@@ -51,7 +51,7 @@ const Signup = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="w-96 rounded-lg shadow-lg p-4">
+      <div className="max-w-md w-full px-4 rounded-lg p-4">
         <div className="space-y-4 m-3">
           <span className="text-2xl font-medium">Sign up</span>
           <form className="space-y-4">

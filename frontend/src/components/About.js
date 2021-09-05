@@ -3,9 +3,9 @@ import React from "react";
 const About = () => {
   return (
     <div className="space-y-3">
-      <div className="bg-gradient-to-r from-blue-700 to-blue-400 py-8 text-center">
-        <div className="text-3xl font-semibold leading-snug text-white">
-          React frontend for task-manager from
+      <div className="flex justify-center  bg-gradient-to-r from-blue-700 to-blue-400 py-8 text-center">
+        <div className="flex flex-col justify-center max-w-lg w-full text-2xl font-semibold leading-snug text-white">
+          React frontend added to backend from
           <a
             className="underline text-blue-100 block"
             href="https://github.com/andrewjmead/node-course-v3-code/tree/master/task-manager"
@@ -17,7 +17,12 @@ const About = () => {
         </div>
       </div>
       <div className="text-center">
-        <a className="underline" href="https://github.com/minho42/" target="_blank" rel="noopener noreferrer">
+        <a
+          className="underline"
+          href="https://github.com/minho42/task-manager"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           github
         </a>
       </div>

@@ -16,8 +16,12 @@ import { CheckUser } from "./CheckUser";
 
 function App() {
   const [user, setUser] = useState(null);
-  useEffect(() => {
-    CheckUser(setUser);
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(async () => {
+    const checked = await CheckUser(setUser);
+    if (checked) {
+      setIsLoaded(true);
+    }
   }, []);
 
   return (
@@ -26,9 +30,7 @@ function App() {
         <UserContext.Provider value={{ user, setUser }}>
           <Navbar />
           <Switch>
-            <Route exact path="/">
-              <TaskList />
-            </Route>
+            <PrivateRoute component={TaskList} path="/" exact />
             <Route exact path="/signup">
               <Signup />
             </Route>
@@ -38,9 +40,6 @@ function App() {
             <Route exact path="/password/reset">
               <PasswordReset />
             </Route>
-            {/* <Route exact path="/profile">
-              <Profile />
-            </Route> */}
             <PrivateRoute component={Profile} path="/profile" exact />
             <Route exact path="/profile/edit">
               <ProfileUpdate />

@@ -10,7 +10,7 @@ const PasswordReset = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="w-96 rounded-lg shadow-lg p-4">
+      <div className="max-w-md w-full px-4 rounded-lg p-4">
         <div className="space-y-4 m-3">
           <span className="text-2xl font-medium">Reset password</span>
           <form className="space-y-4">

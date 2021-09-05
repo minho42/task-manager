@@ -27,7 +27,8 @@ router.get("/tasks", jwtAuth, async (req, res) => {
 
     const newTasks = tasks.map(async (task) => {
       const owner = await User.findById({ _id: task.owner });
-      return { ...task._doc, ownerName: owner.name };
+      const ownerName = owner.name ?? owner.email;
+      return { ...task._doc, ownerName };
     });
 
     res.send(await Promise.all(newTasks));
@@ -54,7 +55,7 @@ router.get("/tasks/:id", auth, async (req, res) => {
   }
 });
 
-router.patch("/tasks/:id", auth, async (req, res) => {
+router.patch("/tasks/:id", jwtAuth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["description", "completed"];
   const isValidOperation = updates.every((update) => allowedUpdates.includes(update));

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 export const requestLogin = async (email, password, setUser) => {
   try {
@@ -18,20 +18,20 @@ export const requestLogin = async (email, password, setUser) => {
     }
     const { user } = await res.json();
     setUser(user);
-    return true;
+    return user;
   } catch (error) {
     console.log(error);
-    return false;
+    return null;
   }
 };
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const { user, setUser } = useContext(UserContext);
-  const history = useHistory();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
+  const { state } = useLocation();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -39,16 +39,16 @@ const Login = () => {
       return setErrorMessage("Please enter your email");
     }
 
-    const loggedin = await requestLogin(email, password, setUser);
-    if (loggedin) {
-      return history.push("/");
+    const loggedinUser = await requestLogin(email, password, setUser);
+    if (loggedinUser) {
+      return history.push(state?.from || "/");
     }
     setErrorMessage("Incorrect email or password");
   };
 
   return (
     <div className="flex justify-center">
-      <div className="w-96 rounded-lg shadow-lg p-4">
+      <div className="max-w-md w-full px-4 rounded-lg p-4">
         {!user ? (
           <div className="space-y-4 m-3">
             <span className="text-2xl font-medium">Log in</span>

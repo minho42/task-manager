@@ -60,7 +60,7 @@ const Profile = () => {
 
   return (
     <div className="flex justify-center text-center py-8">
-      <div className="flex flex-col w-96 space-y-6">
+      <div className="flex flex-col max-w-md w-full px-4 space-y-6">
         <Link
           to="/profile/edit"
           className="rounded-md border  border-gray-400 hover:bg-gray-200 font-medium px-3 py-2 w-full"

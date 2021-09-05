@@ -14,24 +14,31 @@ const TaskList = () => {
       setTasks([]);
       return;
     }
-    const res = await fetch("http://localhost:4000/tasks", {
-      credentials: "include",
-    });
-    const data = await res.json();
-    setTasks(data);
+    try {
+      const res = await fetch("http://localhost:4000/tasks", {
+        credentials: "include",
+      });
+      const data = await res.json();
+      setTasks(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const toggleCompleted = (id) => {
+  const toggleCompleted = async (id) => {
     if (!tasks || tasks.length === 0) return;
 
-    const toggled = tasks.map((task) => {
-      if (task._id === id) {
-        task.completed = !task.completed;
-      }
-      return task;
-    });
+    const task = tasks.find((task) => task._id === id);
+    const updated = await requestUpdateTask(task);
+    // console.log(updated);
+    // const toggled = tasks.map((task) => {
+    //   if (task._id === id) {
+    //     task.completed = !task.completed;
+    //   }
+    //   return task;
+    // });
 
-    setTasks(toggled);
+    // setTasks(toggled);
   };
 
   const completedCount = () => {
@@ -49,6 +56,24 @@ const TaskList = () => {
     fetchData();
   }, [user]);
 
+  const requestUpdateTask = async (task) => {
+    try {
+      const res = await fetch(`http://localhost:4000/tasks/${task._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ completed: !task.completed }),
+      });
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   const requestNewTask = async (newTask) => {
     try {
       const res = await fetch("http://localhost:4000/tasks", {
@@ -63,10 +88,11 @@ const TaskList = () => {
         console.log(res.statusText);
         throw new Error("requestNewTask error");
       }
-      return true;
+      const data = await res.json();
+      return data;
     } catch (error) {
       console.log(error);
-      return false;
+      return null;
     }
   };
 
@@ -74,17 +100,17 @@ const TaskList = () => {
     e.preventDefault();
     const added = await requestNewTask(newTask);
     if (added) {
-      setTasks(...tasks, newTask);
+      setTasks([...tasks, added]);
       setNewTask("");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-2 mx-10 mt-3">
+    <div className="flex flex-col items-center justify-center space-y-2 px-10 mt-3 mb-6">
       <form className="space-y-4">
         <div>
           <label htmlFor="task" className="font-medium text-gray-600 text-sm">
-            New task
+            Add task
           </label>
           <div className="flex">
             <input
@@ -92,14 +118,11 @@ const TaskList = () => {
               onChange={(e) => setNewTask(e.target.value.trim())}
               type="task"
               id="task"
-              placeholder="Add new task"
+              placeholder="New task"
               className="rounded-md w-full py-1.5 px-3 border border-gray-300"
               autoFocus
             />
-            <button
-              onClick={handleNewTask}
-              className="bg-green-500 hover:bg-green-600 text-white rounded p-1"
-            >
+            <button onClick={handleNewTask} className="text-blue-600 hover:text-blue-500p-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-8 w-8"
@@ -122,10 +145,12 @@ const TaskList = () => {
         Tasks: {tasks && tasks.length}
       </h1>
 
-      {tasks.length > 0 &&
-        tasks.map((task, i) => {
-          return <TaskItem key={task._id} index={i + 1} task={task} handleClick={toggleCompleted} />;
-        })}
+      <div className="flex flex-col max-w-md w-full px-4">
+        {tasks.length > 0 &&
+          tasks.map((task, i) => {
+            return <TaskItem key={task._id} index={i + 1} task={task} handleClick={toggleCompleted} />;
+          })}
+      </div>
     </div>
   );
 };
