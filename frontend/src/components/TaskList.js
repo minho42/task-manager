@@ -54,7 +54,7 @@ const TaskList = () => {
 
   useEffect(() => {
     fetchData();
-  }, [user]);
+  }, [user, tasks]);
 
   const requestUpdateTask = async (task) => {
     try {
@@ -141,8 +141,8 @@ const TaskList = () => {
       </form>
 
       <h1 className="text-center text-xl font-semibold">
-        {/* tasks: {tasks && completedCount()}/{tasks && tasks.length} */}
-        Tasks: {tasks && tasks.length}
+        tasks: {tasks && completedCount()}/{tasks && tasks.length}
+        {/* Tasks: {tasks && tasks.length} */}
       </h1>
 
       <div className="flex flex-col max-w-md w-full px-4">
