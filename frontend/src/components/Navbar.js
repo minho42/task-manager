@@ -1,27 +1,44 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { requestLogout } from "./Profile";
 
 function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
+  const { pathname } = useLocation();
+  console.log(pathname);
 
   return (
     <nav>
       <header className="flex justify-center border-b border-gray-300 shadow-sm">
         <div className="flex items-center justify-evenly h-16 w-full">
-          <Link to="/" className="font-medium rounded-xl px-4 py-3 hover:bg-gray-100 cursor-pointer">
-            Task manager
+          <Link
+            to="/"
+            className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
+              pathname === "/" ? "border-b-4 border-blue-500" : ""
+            }`}
+          >
+            Tasks
           </Link>
           {!user && (
-            <Link to="/signup" className="font-medium rounded-xl px-4 py-3 hover:bg-gray-100 cursor-pointer">
+            <Link
+              to="/signup"
+              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
+                pathname === "/signup" ? "border-b-4 border-blue-500" : ""
+              }`}
+            >
               Signup
             </Link>
           )}
           {!user && (
-            <Link to="/login" className="font-medium rounded-xl px-4 py-3 hover:bg-gray-100 cursor-pointer">
+            <Link
+              to="/login"
+              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
+                pathname === "/login" ? "border-b-4 border-blue-500" : ""
+              }`}
+            >
               Login
             </Link>
           )}
@@ -39,7 +56,9 @@ function Navbar() {
           {user && (
             <Link
               to="/profile"
-              className="relative font-medium rounded-xl px-4 py-3 hover:bg-gray-100 cursor-pointer"
+              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
+                pathname === "/profile" ? "border-b-4 border-blue-500" : ""
+              }`}
             >
               {/* profile */}
               <svg
@@ -62,7 +81,12 @@ function Navbar() {
               </div> */}
             </Link>
           )}
-          <Link to="/about" className="font-medium rounded-xl px-4 py-3 hover:bg-gray-100 cursor-pointer">
+          <Link
+            to="/about"
+            className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
+              pathname === "/about" ? "border-b-4 border-blue-500" : ""
+            }`}
+          >
             About
           </Link>
         </div>
