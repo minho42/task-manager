@@ -7,6 +7,7 @@ const TaskList = () => {
   const { user, setUser } = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
+  const [isNeedingRefetch, setIsNeedingRefetch] = useState(false);
   const history = useHistory();
 
   const fetchData = async () => {
@@ -25,11 +26,16 @@ const TaskList = () => {
     }
   };
 
+  const deleteTask = (id) => {
+    console.log("delete: ", id);
+  };
+
   const toggleCompleted = async (id) => {
     if (!tasks || tasks.length === 0) return;
 
     const task = tasks.find((task) => task._id === id);
     const updated = await requestUpdateTask(task);
+    setIsNeedingRefetch(!isNeedingRefetch);
     // console.log(updated);
     // const toggled = tasks.map((task) => {
     //   if (task._id === id) {
@@ -54,7 +60,7 @@ const TaskList = () => {
 
   useEffect(() => {
     fetchData();
-  }, [user, tasks]);
+  }, [user, isNeedingRefetch]);
 
   const requestUpdateTask = async (task) => {
     try {
@@ -148,7 +154,15 @@ const TaskList = () => {
       <div className="flex flex-col max-w-md w-full px-4">
         {tasks.length > 0 &&
           tasks.map((task, i) => {
-            return <TaskItem key={task._id} index={i + 1} task={task} handleClick={toggleCompleted} />;
+            return (
+              <TaskItem
+                key={task._id}
+                index={i + 1}
+                task={task}
+                handleClick={toggleCompleted}
+                handleDelete={deleteTask}
+              />
+            );
           })}
       </div>
     </div>
