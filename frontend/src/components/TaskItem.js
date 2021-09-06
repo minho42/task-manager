@@ -16,7 +16,7 @@ const TaskItem = ({ task, handleClick, handleDelete, index }) => {
     >
       <div
         onClick={() => handleClick(task._id)}
-        className="flex items-center relative space-x-2 cursor-pointer pl-4"
+        className="flex items-center relative space-x-2 cursor-pointer"
       >
         <input
           type="radio"
