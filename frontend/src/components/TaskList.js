@@ -11,6 +11,7 @@ const TaskList = () => {
   const history = useHistory();
 
   const fetchData = async () => {
+    // console.log("fetchData called");
     if (!user) {
       setTasks([]);
       return;
@@ -26,8 +27,22 @@ const TaskList = () => {
     }
   };
 
-  const deleteTask = (id) => {
+  const requestDelete = async (id) => {
     console.log("delete: ", id);
+    try {
+      const res = await fetch(`http://localhost:4000/tasks/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      const data = await res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteTask = (id) => {
+    const deleted = requestDelete(id);
+    setIsNeedingRefetch(!isNeedingRefetch);
   };
 
   const toggleCompleted = async (id) => {
