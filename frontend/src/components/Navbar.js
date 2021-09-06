@@ -8,7 +8,6 @@ function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
   const { pathname } = useLocation();
-  console.log(pathname);
 
   return (
     <nav>
