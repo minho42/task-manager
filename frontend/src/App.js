@@ -16,18 +16,16 @@ import { CheckUser } from "./CheckUser";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(async () => {
-    const checked = await CheckUser(setUser);
-    if (checked) {
-      setIsLoaded(true);
-    }
+    CheckUser(setUser, setIsLoading);
   }, []);
 
   return (
     <div>
       <Router>
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, isLoading }}>
           <Navbar />
           <Switch>
             <PrivateRoute component={TaskList} path="/" exact />

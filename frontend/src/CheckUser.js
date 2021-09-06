@@ -1,4 +1,4 @@
-export const CheckUser = async (setUser) => {
+export const CheckUser = async (setUser, setIsLoading) => {
   try {
     const res = await fetch("http://localhost:4000/users/check", {
       credentials: "include",
@@ -12,9 +12,11 @@ export const CheckUser = async (setUser) => {
     }
 
     setUser(user);
+    setIsLoading(false);
     return true;
   } catch (error) {
     console.log(error);
+    setIsLoading(false);
     return false;
   }
 };
