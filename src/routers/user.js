@@ -1,7 +1,6 @@
 const express = require("express");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
-const jwtAuth = require("../middleware/jwtAuth");
 const router = express.Router();
 
 router.post("/users", async (req, res) => {
@@ -67,7 +66,7 @@ router.post("/users/password/reset/confirm", async (req, res) => {
   }
 });
 
-router.post("/users/logout", jwtAuth, async (req, res) => {
+router.post("/users/logout", auth, async (req, res) => {
   try {
     req.user.tokens = req.user.tokens.filter((token) => {
       return token.token !== req.token;
@@ -80,7 +79,7 @@ router.post("/users/logout", jwtAuth, async (req, res) => {
   }
 });
 
-router.post("/users/logoutall", jwtAuth, async (req, res) => {
+router.post("/users/logoutall", auth, async (req, res) => {
   try {
     req.user.tokens = [];
     await req.user.save();
@@ -91,7 +90,7 @@ router.post("/users/logoutall", jwtAuth, async (req, res) => {
   }
 });
 
-router.get("/users/check", jwtAuth, async (req, res) => {
+router.get("/users/check", auth, async (req, res) => {
   res.send(req.user);
 });
 
@@ -118,7 +117,7 @@ router.patch("/users/me", auth, async (req, res) => {
   }
 });
 
-router.delete("/users/me", jwtAuth, async (req, res) => {
+router.delete("/users/me", auth, async (req, res) => {
   try {
     await req.user.remove();
     res.clearCookie("token");
