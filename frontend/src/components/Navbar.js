@@ -15,8 +15,8 @@ function Navbar() {
         <div className="flex items-center justify-evenly h-16 w-full">
           <Link
             to="/"
-            className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
-              pathname === "/" ? "border-b-4 border-blue-500" : ""
+            className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+              pathname === "/" ? " border-blue-500" : "border-white"
             }`}
           >
             Tasks
@@ -24,8 +24,8 @@ function Navbar() {
           {!user && (
             <Link
               to="/signup"
-              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
-                pathname === "/signup" ? "border-b-4 border-blue-500" : ""
+              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+                pathname === "/signup" ? " border-blue-500" : "border-white"
               }`}
             >
               Signup
@@ -34,8 +34,8 @@ function Navbar() {
           {!user && (
             <Link
               to="/login"
-              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
-                pathname === "/login" ? "border-b-4 border-blue-500" : ""
+              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+                pathname === "/login" ? " border-blue-500" : "border-white"
               }`}
             >
               Login
@@ -55,8 +55,8 @@ function Navbar() {
           {user && (
             <Link
               to="/profile"
-              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
-                pathname === "/profile" ? "border-b-4 border-blue-500" : ""
+              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+                pathname === "/profile" ? " border-blue-500" : "border-white"
               }`}
             >
               {/* profile */}
@@ -82,8 +82,8 @@ function Navbar() {
           )}
           <Link
             to="/about"
-            className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer ${
-              pathname === "/about" ? "border-b-4 border-blue-500" : ""
+            className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+              pathname === "/about" ? " border-blue-500" : "border-white"
             }`}
           >
             About
