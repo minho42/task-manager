@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "../UserContext";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { DeleteModal } from "./DeleteModal";
 
 export const requestLogout = async (user, setUser, history) => {
   try {
@@ -57,6 +58,12 @@ export const requestDeleteAccount = async (user, setUser, history) => {
 const Profile = () => {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    setIsDeleteModalOpen(true);
+  };
 
   return (
     <div className="flex justify-center text-center py-8">
@@ -81,13 +88,17 @@ const Profile = () => {
         >
           Log out from all devices
         </a>
-        <a
-          onClick={() => requestDeleteAccount(user, setUser, history)}
-          href="/profile/delete"
-          className="hover:underline"
-        >
+        <a onClick={handleDelete} href="/profile/delete" className="hover:underline">
           Delete account
         </a>
+        {isDeleteModalOpen && (
+          <DeleteModal
+            user={user}
+            isOpen={isDeleteModalOpen}
+            reallyDelete={() => requestDeleteAccount(user, setUser, history)}
+            onClose={() => setIsDeleteModalOpen(false)}
+          />
+        )}
       </div>
     </div>
   );
