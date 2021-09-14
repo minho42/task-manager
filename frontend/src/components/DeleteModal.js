@@ -9,7 +9,7 @@ export const DeleteModal = ({ user, children, isOpen, reallyDelete, onClose }) =
     // Using useEffect to setIsMatch as useState sets it 1 letter late...
     // https://stackoverflow.com/questions/57403647/changing-state-for-input-is-delayed-by-one-character-usestate-hook
 
-    if (value === user.email) {
+    if (value?.toLowerCase() === user.email?.toLowerCase()) {
       setIsMatch(true);
     } else {
       setIsMatch(false);
