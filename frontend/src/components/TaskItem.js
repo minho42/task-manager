@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const TaskItem = ({ task, handleClick, handleDelete, index }) => {
+const TaskItem = ({ task, handleClick, handleToggle, handleDelete, index }) => {
   const [showDeleteButton, setShowDeleteButton] = useState(false);
 
   const handleDeleteClick = (e) => {
@@ -19,9 +19,10 @@ const TaskItem = ({ task, handleClick, handleDelete, index }) => {
         className="flex items-center relative space-x-2 cursor-pointer"
       >
         <input
-          type="radio"
-          className="w-4 h-4"
-          // checked={!task.completed}
+          onChange={() => handleToggle(task._id)}
+          type="checkbox"
+          className="w-5 h-5"
+          checked={task.completed}
         />
         <span className={`${task.completed ? "line-through text-gray-400" : ""}`}>{task.description}</span>
         {/* <span className="absolute bottom-1 right-2 text-xs text-gray-500 pl-4">{task.ownerName}</span> */}

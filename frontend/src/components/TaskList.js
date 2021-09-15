@@ -2,11 +2,14 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../UserContext";
 import { useHistory } from "react-router-dom";
 import TaskItem from "./TaskItem";
+import { DetailModal } from "./DetailModal";
 
 const TaskList = () => {
   const { user, setUser } = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
   const [isNeedingRefetch, setIsNeedingRefetch] = useState(false);
   const history = useHistory();
 
@@ -45,10 +48,23 @@ const TaskList = () => {
     setIsNeedingRefetch(!isNeedingRefetch);
   };
 
+  const showDetail = async (id) => {
+    if (!tasks || tasks.length === 0) return;
+
+    const task = await tasks.find((task) => task._id === id);
+    setSelectedTask(task);
+    setIsDetailModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setSelectedTask(null);
+    setIsDetailModalOpen(false);
+  };
+
   const toggleCompleted = async (id) => {
     if (!tasks || tasks.length === 0) return;
 
-    const task = tasks.find((task) => task._id === id);
+    const task = await tasks.find((task) => task._id === id);
     const updated = await requestUpdateTask(task);
     setIsNeedingRefetch(!isNeedingRefetch);
     // console.log(updated);
@@ -119,6 +135,9 @@ const TaskList = () => {
 
   const handleNewTask = async (e) => {
     e.preventDefault();
+    if (!newTask.trim()) {
+      return null;
+    }
     const added = await requestNewTask(newTask);
     if (added) {
       setTasks([...tasks, added]);
@@ -174,12 +193,22 @@ const TaskList = () => {
                 key={task._id}
                 index={i + 1}
                 task={task}
-                handleClick={toggleCompleted}
+                handleClick={showDetail}
+                handleToggle={toggleCompleted}
                 handleDelete={deleteTask}
               />
             );
           })}
       </div>
+
+      {selectedTask && isDetailModalOpen && (
+        <DetailModal
+          task={selectedTask}
+          isOpen={isDetailModalOpen}
+          onClose={handleModalClose}
+          handleToggle={toggleCompleted}
+        />
+      )}
     </div>
   );
 };
