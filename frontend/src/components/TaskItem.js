@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const TaskItem = ({ task, handleClick, handleToggle, handleDelete, index }) => {
   const [showDeleteButton, setShowDeleteButton] = useState(false);
+  const [showMenuButton, setShowMenuButton] = useState(false);
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
@@ -10,8 +11,8 @@ const TaskItem = ({ task, handleClick, handleToggle, handleDelete, index }) => {
 
   return (
     <div
-      onMouseOver={() => setShowDeleteButton(true)}
-      onMouseLeave={() => setShowDeleteButton(false)}
+      onMouseOver={() => setShowMenuButton(true)}
+      onMouseLeave={() => setShowMenuButton(false)}
       className="border-b border-gray-300 hover:bg-gray-50 px-3 py-1.5"
     >
       <div
@@ -29,6 +30,19 @@ const TaskItem = ({ task, handleClick, handleToggle, handleDelete, index }) => {
         {/* <div className="absolute -top-4 -right-8 flex items-center justify-center  rounded w-8 h-6 border border-gray-400 bg-white text-sm font-semibold">
           {index}
         </div> */}
+        {showMenuButton && (
+          <span onClick={handleDeleteClick} className="absolute right-0">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 p-1 rounded hover:bg-gray-200"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+            </svg>
+          </span>
+        )}
+
         {showDeleteButton && (
           <span onClick={handleDeleteClick} className="absolute right-0">
             <svg

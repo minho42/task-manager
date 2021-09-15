@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom";
 
 export const DetailModal = ({ task, children, isOpen, onClose, handleToggle }) => {
-  const [isEditingMode, setIsEditingMode] = useState(false);
   const [newDescription, setNewDescription] = useState(task.description);
+  const [newCompleted, setNewCompleted] = useState(task.completed);
+
   if (!isOpen) {
     return null;
   }
 
   const handleCancel = (params) => {
-    setIsEditingMode(false);
     console.log("cancel");
     console.log(newDescription.trim() === task.description.trim());
   };
@@ -38,39 +38,37 @@ export const DetailModal = ({ task, children, isOpen, onClose, handleToggle }) =
             </svg>
           </span>
         </div>
-        <div className="flex space-x-2 items-center" onClick={() => setIsEditingMode(true)}>
-          <input
-            onChange={(e) => {
-              e.stopPropagation();
-              handleToggle(task._id);
-            }}
-            type="checkbox"
-            className="w-5 h-5"
-            checked={task.completed}
-          />
-          {isEditingMode ? (
-            <div className="flex flex-col space-y-2 w-full">
-              <textarea
-                rows="2"
-                className="border border-gray-400 rounded p-2 resize-none"
-                value={newDescription}
-                onChange={(e) => setNewDescription(e.target.value)}
-              />
-              <flex className="space-x-2">
-                <button className="rounded px-2 py-1 border border-gray-300 bg-red-600 text-white">
-                  Save
-                </button>
-                <button
-                  onClick={handleCancel}
-                  className="rounded px-2 py-1 border border-gray-300 hover:bg-gray-200"
-                >
-                  Cancel
-                </button>
-              </flex>
-            </div>
-          ) : (
-            <div className="font-semibold">{task.description}</div>
-          )}
+        <div className="flex flex-col space-y-2">
+          <div className="flex w-full space-x-2 items-center">
+            <input
+              onChange={(e) => {
+                // e.stopPropagation();
+                setNewCompleted(!newCompleted);
+                handleToggle(task._id);
+              }}
+              type="checkbox"
+              className="w-5 h-5"
+              checked={newCompleted}
+            />
+            <textarea
+              rows="2"
+              className="border border-gray-400 rounded p-2 resize-none w-full"
+              value={newDescription}
+              onChange={(e) => setNewDescription(e.target.value)}
+            />
+          </div>
+
+          <div className="flex flex-col space-y-2 w-full">
+            <flex className="space-x-2 justify-center">
+              <button className="rounded px-2 py-1 border border-gray-300 bg-red-600 text-white">Save</button>
+              <button
+                onClick={() => onClose()}
+                className="rounded px-2 py-1 border border-gray-300 hover:bg-gray-200"
+              >
+                Cancel
+              </button>
+            </flex>
+          </div>
         </div>
       </div>
     </div>,
