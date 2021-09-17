@@ -4,6 +4,13 @@ import ReactDOM from "react-dom";
 export const DetailModal = ({ task, isOpen, onClose, handleSave, handleDelete }) => {
   const [newDescription, setNewDescription] = useState(task.description);
 
+  const enterSave = (e) => {
+    if (e.keyCode === 13) {
+      handleSave(task._id, e.target.value.trim());
+      onClose();
+    }
+  };
+
   const escClose = (e) => {
     if (e.keyCode === 27) {
       onClose();
@@ -12,8 +19,10 @@ export const DetailModal = ({ task, isOpen, onClose, handleSave, handleDelete })
 
   useEffect(() => {
     document.addEventListener("keydown", escClose);
+    document.addEventListener("keydown", enterSave);
     return () => {
       document.removeEventListener("keydown", escClose);
+      document.removeEventListener("keydown", enterSave);
     };
   }, []);
 
@@ -47,11 +56,11 @@ export const DetailModal = ({ task, isOpen, onClose, handleSave, handleDelete })
         </div>
         <div className="flex flex-col space-y-2">
           <div className="flex w-full space-x-2 items-center">
-            <textarea
-              rows="2"
+            <input
               className="border border-gray-400 rounded p-2 resize-none w-full"
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
+              autoFocus
             />
           </div>
 
