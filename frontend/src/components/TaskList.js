@@ -65,6 +65,9 @@ const TaskList = () => {
     if (!tasks || tasks.length === 0) return;
 
     const task = await tasks.find((task) => task._id === id);
+    if (task.description === newDescription.trim()) {
+      return;
+    }
     task.description = newDescription;
     const updated = await requestUpdateTask(task);
     setIsNeedingRefetch(!isNeedingRefetch);
