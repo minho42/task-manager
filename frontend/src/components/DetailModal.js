@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-export const DetailModal = ({ task, children, isOpen, onClose, handleToggle }) => {
+export const DetailModal = ({ task, isOpen, onClose, handleSave, handleDelete }) => {
   const [newDescription, setNewDescription] = useState(task.description);
 
   const escClose = (e) => {
@@ -47,16 +47,6 @@ export const DetailModal = ({ task, children, isOpen, onClose, handleToggle }) =
         </div>
         <div className="flex flex-col space-y-2">
           <div className="flex w-full space-x-2 items-center">
-            <input
-              onChange={(e) => {
-                // e.stopPropagation();
-                setNewCompleted(!newCompleted);
-                handleToggle(task._id);
-              }}
-              type="checkbox"
-              className="w-5 h-5"
-              checked={newCompleted}
-            />
             <textarea
               rows="2"
               className="border border-gray-400 rounded p-2 resize-none w-full"
@@ -66,14 +56,35 @@ export const DetailModal = ({ task, children, isOpen, onClose, handleToggle }) =
           </div>
 
           <div className="flex flex-col space-y-2 w-full">
-            <flex className="space-x-2 justify-center">
-              <button className="rounded px-2 py-1 border border-gray-300 bg-red-600 text-white">Save</button>
-              <button
-                onClick={() => onClose()}
-                className="rounded px-2 py-1 border border-gray-300 hover:bg-gray-200"
-              >
-                Cancel
-              </button>
+            <flex className="flex justify-between">
+              <div className="space-x-2">
+                <button
+                  onClick={() => {
+                    handleSave(task._id, newDescription);
+                    onClose();
+                  }}
+                  className="rounded px-2 py-1 border border-gray-300 bg-blue-600 hover:bg-blue-500 text-white"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => onClose()}
+                  className="rounded px-2 py-1 border border-gray-300 hover:bg-gray-200"
+                >
+                  Cancel
+                </button>
+              </div>
+              <div>
+                <button
+                  onClick={() => {
+                    handleDelete(task._id);
+                    onClose();
+                  }}
+                  className="rounded px-2 py-1 border border-gray-300 text-red-600 hover:bg-red-600 hover:text-white"
+                >
+                  Delete
+                </button>
+              </div>
             </flex>
           </div>
         </div>

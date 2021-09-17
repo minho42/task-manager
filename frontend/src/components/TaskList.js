@@ -61,10 +61,20 @@ const TaskList = () => {
     setIsDetailModalOpen(false);
   };
 
+  const updateDescription = async (id, newDescription) => {
+    if (!tasks || tasks.length === 0) return;
+
+    const task = await tasks.find((task) => task._id === id);
+    task.description = newDescription;
+    const updated = await requestUpdateTask(task);
+    setIsNeedingRefetch(!isNeedingRefetch);
+  };
+
   const toggleCompleted = async (id) => {
     if (!tasks || tasks.length === 0) return;
 
     const task = await tasks.find((task) => task._id === id);
+    task.completed = !task.completed;
     const updated = await requestUpdateTask(task);
     setIsNeedingRefetch(!isNeedingRefetch);
     // console.log(updated);
@@ -101,7 +111,7 @@ const TaskList = () => {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ completed: !task.completed }),
+        body: JSON.stringify({ description: task.description, completed: task.completed }),
       });
       const data = await res.json();
       return data;
@@ -195,7 +205,6 @@ const TaskList = () => {
                 task={task}
                 handleClick={showDetail}
                 handleToggle={toggleCompleted}
-                handleDelete={deleteTask}
               />
             );
           })}
@@ -206,7 +215,8 @@ const TaskList = () => {
           task={selectedTask}
           isOpen={isDetailModalOpen}
           onClose={handleModalClose}
-          handleToggle={toggleCompleted}
+          handleSave={updateDescription}
+          handleDelete={deleteTask}
         />
       )}
     </div>
