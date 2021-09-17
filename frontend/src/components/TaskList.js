@@ -148,7 +148,7 @@ const TaskList = () => {
     if (!newTask.trim()) {
       return null;
     }
-    const added = await requestNewTask(newTask);
+    const added = await requestNewTask(newTask.trim());
     if (added) {
       setTasks([...tasks, added]);
       setNewTask("");
@@ -165,7 +165,7 @@ const TaskList = () => {
           <div className="flex">
             <input
               value={newTask}
-              onChange={(e) => setNewTask(e.target.value.trim())}
+              onChange={(e) => setNewTask(e.target.value)}
               type="task"
               id="task"
               placeholder="New task"
