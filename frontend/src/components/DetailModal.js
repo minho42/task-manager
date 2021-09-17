@@ -1,18 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 
 export const DetailModal = ({ task, children, isOpen, onClose, handleToggle }) => {
   const [newDescription, setNewDescription] = useState(task.description);
-  const [newCompleted, setNewCompleted] = useState(task.completed);
+
+  const escClose = (e) => {
+    if (e.keyCode === 27) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", escClose);
+    return () => {
+      document.removeEventListener("keydown", escClose);
+    };
+  }, []);
 
   if (!isOpen) {
     return null;
   }
-
-  const handleCancel = (params) => {
-    console.log("cancel");
-    console.log(newDescription.trim() === task.description.trim());
-  };
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0">

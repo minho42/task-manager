@@ -5,6 +5,19 @@ export const DeleteModal = ({ user, children, isOpen, reallyDelete, onClose }) =
   const [value, setValue] = useState(null);
   const [isMatch, setIsMatch] = useState(false);
 
+  const escClose = (e) => {
+    if (e.keyCode === 27) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", escClose);
+    return () => {
+      document.removeEventListener("keydown", escClose);
+    };
+  }, []);
+
   useEffect(() => {
     // Using useEffect to setIsMatch as useState sets it 1 letter late...
     // https://stackoverflow.com/questions/57403647/changing-state-for-input-is-delayed-by-one-character-usestate-hook
