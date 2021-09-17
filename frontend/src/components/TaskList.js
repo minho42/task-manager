@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "../UserContext";
 import { useHistory } from "react-router-dom";
 import TaskItem from "./TaskItem";
@@ -11,6 +11,7 @@ const TaskList = () => {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isNeedingRefetch, setIsNeedingRefetch] = useState(false);
+  const newTaskInputRef = useRef();
   const history = useHistory();
 
   const fetchData = async () => {
@@ -102,6 +103,20 @@ const TaskList = () => {
     return count;
   };
 
+  const slashToFocus = (e) => {
+    if (e.keyCode === 65 || e.keyCode === 191) {
+      newTaskInputRef.current.focus();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", slashToFocus);
+
+    return () => {
+      document.removeEventListener("keydown", slashToFocus);
+    };
+  }, []);
+
   useEffect(() => {
     fetchData();
   }, [user, isNeedingRefetch]);
@@ -167,6 +182,7 @@ const TaskList = () => {
           </label>
           <div className="flex">
             <input
+              ref={newTaskInputRef}
               value={newTask}
               onChange={(e) => setNewTask(e.target.value)}
               type="task"
