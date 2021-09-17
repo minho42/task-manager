@@ -11,21 +11,13 @@ import ProfileUpdate from "./components/ProfileUpdate";
 import About from "./components/About";
 import PrivateRoute from "./components/PrivateRoute";
 
-import { UserContext } from "./UserContext";
-import { CheckUser } from "./CheckUser";
+import { UserProvider } from "./UserContext";
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(async () => {
-    CheckUser(setUser, setIsLoading);
-  }, []);
-
   return (
     <div>
       <Router>
-        <UserContext.Provider value={{ user, setUser, isLoading }}>
+        <UserProvider>
           <Navbar />
           <Switch>
             <PrivateRoute component={TaskList} path="/" exact />
@@ -46,7 +38,7 @@ function App() {
               <About />
             </Route>
           </Switch>
-        </UserContext.Provider>
+        </UserProvider>
       </Router>
     </div>
   );
