@@ -74,20 +74,18 @@ const Profile = () => {
         >
           Edit profile
         </Link>
-        <a
+        <button
           onClick={() => requestLogout(user, setUser, history)}
-          href="/logout"
           className="rounded-md bg-blue-600 hover:bg-blue-500 text-white font-medium px-3 py-2 w-full"
         >
           Log out
-        </a>
-        <a
+        </button>
+        <button
           onClick={() => requestLogoutAll(user, setUser, history)}
-          href="/logoutall"
           className="rounded-md bg-blue-600 hover:bg-blue-500 text-white font-medium px-3 py-2 w-full"
         >
           Log out from all devices
-        </a>
+        </button>
         <a onClick={handleDelete} href="/profile/delete" className="hover:underline">
           Delete account
         </a>
