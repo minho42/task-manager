@@ -110,10 +110,10 @@ const TaskList = () => {
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", slashToFocus);
+    document.addEventListener("keyup", slashToFocus);
 
     return () => {
-      document.removeEventListener("keydown", slashToFocus);
+      document.removeEventListener("keyup", slashToFocus);
     };
   }, []);
 
