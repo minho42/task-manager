@@ -72,14 +72,11 @@ export const DetailModal = ({ task, isOpen, onClose, handleSave, handleDelete })
                     handleSave(task._id, newDescription);
                     onClose();
                   }}
-                  className="rounded px-2 py-1 border border-gray-300 bg-blue-600 hover:bg-blue-500 text-white"
+                  className="rounded px-2 py-1 border border-gray-300 bg-blue-60 text-white"
                 >
                   Save
                 </button>
-                <button
-                  onClick={() => onClose()}
-                  className="rounded px-2 py-1 border border-gray-300 hover:bg-gray-200"
-                >
+                <button onClick={() => onClose()} className="rounded px-2 py-1 border border-gray-300">
                   Cancel
                 </button>
               </div>
@@ -89,7 +86,7 @@ export const DetailModal = ({ task, isOpen, onClose, handleSave, handleDelete })
                     handleDelete(task._id);
                     onClose();
                   }}
-                  className="rounded px-2 py-1 border border-gray-300 text-red-600 hover:bg-red-600 hover:text-white"
+                  className="rounded px-2 py-1 border border-gray-300 text-red-600"
                 >
                   Delete
                 </button>

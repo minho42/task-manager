@@ -72,8 +72,7 @@ export const DeleteModal = ({ user, children, isOpen, reallyDelete, onClose }) =
           />
           <button
             onClick={() => reallyDelete()}
-            className={`rounded bg-gray-100 border border-gray-300 py-1 px-3 text-red-600 
-            ${isMatch ? "hover:bg-red-600 hover:text-white" : ""} `}
+            className="rounded bg-gray-100 border border-gray-300 py-1 px-3 text-red-600"
             disabled={!isMatch}
           >
             <span className={`${isMatch ? "opacity-100 cursor-pointer" : "opacity-50 cursor-default"}`}>

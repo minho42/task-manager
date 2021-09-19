@@ -191,7 +191,7 @@ const TaskList = () => {
               className="rounded-md w-full py-1.5 px-3 border border-gray-300"
               autoFocus
             />
-            <button onClick={handleNewTask} className="text-blue-600 hover:text-blue-500p-1">
+            <button onClick={handleNewTask} className="text-blue-600 p-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-8 w-8"

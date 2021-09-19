@@ -25,7 +25,7 @@ const PasswordReset = () => {
             />
             <button
               onClick={handlePasswordReset}
-              className="rounded-md bg-blue-600 hover:bg-blue-500 text-white font-medium px-3 py-2 w-full"
+              className="rounded-md bg-blue-600 text-white font-medium px-3 py-2 w-full"
             >
               Reset password
             </button>

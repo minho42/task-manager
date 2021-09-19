@@ -97,7 +97,7 @@ const Login = () => {
               <div>
                 <button
                   onClick={handleLogin}
-                  className="rounded-md bg-blue-600 hover:bg-blue-500 text-white font-medium px-3 py-2 w-full"
+                  className="rounded-md bg-blue-600 text-white font-medium px-3 py-2 w-full"
                 >
                   Log in
                 </button>

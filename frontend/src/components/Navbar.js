@@ -15,7 +15,7 @@ function Navbar() {
         <div className="flex items-center justify-evenly h-16 w-full">
           <Link
             to="/"
-            className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+            className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${
               pathname === "/" ? " border-blue-500" : "border-white"
             }`}
           >
@@ -24,7 +24,7 @@ function Navbar() {
           {!user && (
             <Link
               to="/signup"
-              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+              className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${
                 pathname === "/signup" ? " border-blue-500" : "border-white"
               }`}
             >
@@ -34,7 +34,7 @@ function Navbar() {
           {!user && (
             <Link
               to="/login"
-              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+              className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${
                 pathname === "/login" ? " border-blue-500" : "border-white"
               }`}
             >
@@ -47,7 +47,7 @@ function Navbar() {
               onClick={() => {
                 requestLogout(user, setUser, history);
               }}
-              className="font-medium rounded-xl px-4 py-3 hover:bg-gray-100 cursor-pointer"
+              className="font-medium rounded-xl px-4 py-3 cursor-pointer"
             >
               Logout
             </a>
@@ -55,7 +55,7 @@ function Navbar() {
           {user && (
             <Link
               to="/profile"
-              className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+              className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${
                 pathname === "/profile" ? " border-blue-500" : "border-white"
               }`}
             >
@@ -82,7 +82,7 @@ function Navbar() {
           )}
           <Link
             to="/about"
-            className={`flex items-center h-full font-medium px-4 py-3 hover:bg-gray-100 cursor-pointer border-b-4 ${
+            className={`flex items-center h-full font-medium px-4 py-3 cursor-pointer border-b-4 ${
               pathname === "/about" ? " border-blue-500" : "border-white"
             }`}
           >

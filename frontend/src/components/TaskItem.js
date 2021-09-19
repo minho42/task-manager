@@ -11,7 +11,7 @@ const TaskItem = ({ task, handleClick, handleToggle, handleDelete, index }) => {
   };
 
   return (
-    <div className="border-b border-gray-300 hover:bg-gray-50 px-3 py-1.5">
+    <div className="border-b border-gray-300 px-3 py-1.5">
       <div onClick={() => handleClick(task._id)} className="flex items-center space-x-2 cursor-pointer">
         <input
           onChange={() => handleToggle(task._id)}
