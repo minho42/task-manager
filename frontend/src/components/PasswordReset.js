@@ -20,13 +20,10 @@ const PasswordReset = () => {
             <input
               type="email"
               id="email"
-              className="rounded-md w-full py-1.5 px-3 border border-gray-300"
+              className="input w-full"
               onChange={(e) => setEmail(e.target.value.trim())}
             />
-            <button
-              onClick={handlePasswordReset}
-              className="rounded-md bg-blue-600 text-white font-medium px-3 py-2 w-full"
-            >
+            <button onClick={handlePasswordReset} className="btn w-full">
               Reset password
             </button>
           </form>

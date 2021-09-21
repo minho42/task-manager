@@ -188,7 +188,7 @@ const TaskList = () => {
               type="task"
               id="task"
               placeholder="New task"
-              className="rounded-md w-full py-1.5 px-3 border border-gray-300"
+              className="input w-full"
               autoFocus
             />
             <button onClick={handleNewTask} className="text-blue-600 p-1">

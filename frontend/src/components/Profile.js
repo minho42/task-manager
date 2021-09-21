@@ -68,19 +68,13 @@ const Profile = () => {
   return (
     <div className="flex justify-center text-center py-8">
       <div className="flex flex-col max-w-md w-full px-4 space-y-6">
-        <Link to="/profile/edit" className="rounded-md border  border-gray-400 font-medium px-3 py-2 w-full">
+        <Link to="/profile/edit" className="btn w-full">
           Edit profile
         </Link>
-        <button
-          onClick={() => requestLogout(user, setUser, history)}
-          className="rounded-md bg-blue-600 text-white font-medium px-3 py-2 w-full"
-        >
+        <button onClick={() => requestLogout(user, setUser, history)} className="btn w-full">
           Log out
         </button>
-        <button
-          onClick={() => requestLogoutAll(user, setUser, history)}
-          className="rounded-md bg-blue-600 text-white font-medium px-3 py-2 w-full"
-        >
+        <button onClick={() => requestLogoutAll(user, setUser, history)} className="btn w-full">
           Log out from all devices
         </button>
         <a onClick={handleDelete} href="/profile/delete" className="">

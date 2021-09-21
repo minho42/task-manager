@@ -63,7 +63,7 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value.trim())}
                 type="email"
                 id="email"
-                className="rounded-md w-full py-1.5 px-3 border border-gray-300"
+                className="input w-full"
               />
             </div>
             <div>
@@ -74,7 +74,7 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value.trim())}
                 type="password"
                 id="password"
-                className="rounded-md w-full py-1.5 px-3 border border-gray-300"
+                className="input w-full"
               />
 
               {errorMessage && (
@@ -97,10 +97,7 @@ const Signup = () => {
             </div>
 
             <div>
-              <button
-                onClick={handleSignup}
-                className="rounded-md bg-blue-600 text-white font-medium px-3 py-2 w-full"
-              >
+              <button onClick={handleSignup} className="btn w-full">
                 Sign up
               </button>
             </div>

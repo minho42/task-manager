@@ -64,17 +64,8 @@ export const DeleteModal = ({ user, children, isOpen, reallyDelete, onClose }) =
           Plase type <span className="font-semibold">{user.email}</span> to confirm.
         </p>
         <form className="flex flex-col space-y-2">
-          <input
-            onChange={handleChange}
-            type="text"
-            className="rounded border border-gray-400 py-1.5 px-3"
-            autoFocus
-          />
-          <button
-            onClick={() => reallyDelete()}
-            className="rounded bg-gray-100 border border-gray-300 py-1 px-3 text-red-600"
-            disabled={!isMatch}
-          >
+          <input onChange={handleChange} type="text" className="input" autoFocus />
+          <button onClick={() => reallyDelete()} className="btn-red" disabled={!isMatch}>
             <span className={`${isMatch ? "opacity-100 cursor-pointer" : "opacity-50 cursor-default"}`}>
               Delete this account
             </span>

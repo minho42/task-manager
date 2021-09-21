@@ -57,7 +57,7 @@ export const DetailModal = ({ task, isOpen, onClose, handleSave, handleDelete })
         <div className="flex flex-col space-y-2">
           <div className="flex w-full space-x-2 items-center">
             <input
-              className="border border-gray-400 rounded p-2 resize-none w-full"
+              className="input w-full"
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
               autoFocus
@@ -72,11 +72,11 @@ export const DetailModal = ({ task, isOpen, onClose, handleSave, handleDelete })
                     handleSave(task._id, newDescription);
                     onClose();
                   }}
-                  className="rounded px-2 py-1 border border-gray-300 bg-blue-60 text-white"
+                  className="btn"
                 >
                   Save
                 </button>
-                <button onClick={() => onClose()} className="rounded px-2 py-1 border border-gray-300">
+                <button onClick={() => onClose()} className="btn">
                   Cancel
                 </button>
               </div>
@@ -86,7 +86,7 @@ export const DetailModal = ({ task, isOpen, onClose, handleSave, handleDelete })
                     handleDelete(task._id);
                     onClose();
                   }}
-                  className="rounded px-2 py-1 border border-gray-300 text-red-600"
+                  className="btn-red"
                 >
                   Delete
                 </button>
